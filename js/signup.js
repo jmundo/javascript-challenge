@@ -1,7 +1,7 @@
 /*
-    Signup Form Script
-    This script will load the state select list and validate the form before submission
-*/
+ Signup Form Script
+ This script will load the state select list and validate the form before submission
+ */
 
 function onReady(){
     var signup = document.getElementById('signup');
@@ -104,18 +104,26 @@ function validateZip(){
 
 function validateAge(){
     var dob = document.getElementById('birthdate');
-    var age = new Date(dob.value);
-    var ageValid = moment().diff(age, 'years') >= 13;
+    var birthdate = moment(dob.value);
+    var ageValid = birthdate.isValid();
+    var ageMin = moment().diff(birthdate, 'years') >= 13;
 
-    if(ageValid){
+    if(ageValid && ageMin){
         dob.className = 'form-control';
         document.getElementById('birthdateMessage').innerHTML = '';
-    } else {
+    } else if(!ageValid){
+        dob.className = 'form-control invalid';
+        document.getElementById('birthdateMessage').innerHTML = 'Please enter a valid birth date.';
+    } else if (!ageMin){
         dob.className = 'form-control invalid';
         document.getElementById('birthdateMessage').innerHTML = 'You must be over 13 years old to sign up.';
     }
 
-    return ageValid;
+    return ageValid && ageMin;
+}
+
+function checkAge(ageValid){
+
 }
 
 document.addEventListener('DOMContentLoaded', onReady);
