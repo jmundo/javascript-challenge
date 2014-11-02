@@ -31,7 +31,7 @@ function onReady(){
 
 function onChange(){
     var occupation = document.getElementById('occupation');
-    var field = document.getElementById('occupationOther');
+    var field = signup.elements['occupationOther'];
 
     if(occupation.value == 'other'){
         field.style.display = 'block';
@@ -56,7 +56,7 @@ function validateForm(form) {
     var valid = true;
 
     try {
-        if (document.getElementById('occupationOther').style.display == 'block') {
+        if (signup.elements['occupationOther'].style.display == 'block') {
             requiredFields.push('occupationOther');
         }
 
@@ -89,7 +89,7 @@ function validateRequiredField(field) {
 }
 
 function validateZip(){
-    var zip = document.getElementById('zip');
+    var zip = signup.elements['zip'];
     var zipRegExp = new RegExp('^\\d{5}$');
     var zipValid = zipRegExp.test(zip.value);
 
@@ -108,22 +108,24 @@ function validateAge(){
     var ageValid = birthdate.isValid();
     var ageMin = moment().diff(birthdate, 'years') >= 13;
 
+    var birthdateMessage = document.getElementById('birthdateMessage').innerHTML;
+
     if(ageValid && ageMin){
         dob.className = 'form-control';
-        document.getElementById('birthdateMessage').innerHTML = '';
+        birthdateMessage = '';
     } else if(!ageValid){
         dob.className = 'form-control invalid';
-        document.getElementById('birthdateMessage').innerHTML = 'Please enter a valid birth date.';
+        birthdateMessage = '';
     } else if (!ageMin){
         dob.className = 'form-control invalid';
-        document.getElementById('birthdateMessage').innerHTML = 'You must be over 13 years old to sign up.';
+        birthdateMessage = '';
     }
 
     return ageValid && ageMin;
 }
 
-function checkAge(ageValid){
-
+function displayError(exception){
+    console.log(exception);
 }
 
 document.addEventListener('DOMContentLoaded', onReady);
