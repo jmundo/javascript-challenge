@@ -107,20 +107,20 @@ function validateAge(){
     var birthdate = moment(dob.value);
     var ageValid = birthdate.isValid();
     var ageMin = moment().diff(birthdate, 'years') >= 13;
-
-    var birthdateMessage = document.getElementById('birthdateMessage').innerHTML;
+    var birthdateMessage;
 
     if(ageValid && ageMin){
         dob.className = 'form-control';
         birthdateMessage = '';
     } else if(!ageValid){
         dob.className = 'form-control invalid';
-        birthdateMessage = '';
+        birthdateMessage = 'Please enter a valid birth date.';
     } else if (!ageMin){
         dob.className = 'form-control invalid';
-        birthdateMessage = '';
+        birthdateMessage = 'You must be over 13 to sign up.';
     }
 
+    document.getElementById('birthdateMessage').innerHTML = birthdateMessage;
     return ageValid && ageMin;
 }
 
