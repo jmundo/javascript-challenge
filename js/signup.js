@@ -37,6 +37,7 @@ function onChange(){
         field.style.display = 'block';
     } else {
         field.style.display = 'none';
+        signup.elements['occupationOther'].value = '';
     }
 }
 
